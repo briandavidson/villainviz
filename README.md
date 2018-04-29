@@ -1,6 +1,6 @@
-# villanviz
+# villainviz
 
-> A Vue.js project
+> visualize the villains
 
 ## Build Setup
 
