@@ -60,7 +60,7 @@ export default {
             })
         },
         go: function (ip) {
-            let url = `https://ip-api.com/json/${ip}`
+            let url = `https://cors-anywhere.herokuapp.com/https://ip-api.com/json/${ip}`
             axios.get(url)
                 .then(response => {
                     /* global google */
