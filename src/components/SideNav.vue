@@ -48,7 +48,6 @@ export default {
         loadFeed: function (feed) {
             feed.ip_addresses = []
             axios.get(feed.url, {'responseType': 'text'}).then(response => {
-                // console.dir(response.data)
                 let ips = response.data.split('\n')
                 for (let i = ips.length - 30; i < ips.length - 20; i++) {
                     if (!(ips[i].indexOf('/') > -1)) {
