@@ -1,8 +1,8 @@
 <template>
 <div class="container">
-    <side-nav class="side-nav"/>
+    <side-nav class="side-nav" />
     <div class="map-container">
-        <div class="villain-map" id="map"/>
+        <div class="villain-map" id="map" />
     </div>
 </div>
 </template>
@@ -17,6 +17,7 @@ export default {
     },
     data () {
         return {
+            locations: [],
             selected: {
                 location: ''
             }
@@ -48,16 +49,19 @@ export default {
     left: 0px;
     overflow: hidden;
 }
+
 .villain-map {
     height: 100%;
     width: 100%;
 }
+
 .item-details {
     height: 300px;
     width: calc(100% - 20px);
     background: white;
     margin: 10px 12px;
 }
+
 .table-item {
     border-radius: 3px;
     cursor: pointer;
@@ -73,26 +77,9 @@ export default {
     padding-right: 20px;
     font-size: 14px;
 }
+
 .item-label {
     font-weight: bold;
     margin-right: 12px;
-}
-h1,
-h2 {
-    font-weight: normal;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    display: inline-block;
-    margin: 0 10px;
-}
-
-a {
-    color: #42b983;
 }
 </style>
