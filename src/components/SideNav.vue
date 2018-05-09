@@ -1,12 +1,12 @@
 <template>
 <div :class="{'toggled': toggled}">
     <div class="data-feeds">
-        <select v-on:change="getData" class="feed-select" :class="{'toggled' : toggled}" v-model="selected">
+        <select v-on:change="$emit('getdata', selected)" class="feed-select" :class="{'toggled' : toggled}" v-model="selected">
             <option class="data-feed" :class="{'toggled' : toggled}" v-bind:value="feed" v-bind:key="feed.url" v-for="feed in feeds">{{feed.name}}</option>
         </select>
     </div>
     <div class="ip-addresses">
-        <div @click="geolocate(ip)" class="ip-address" v-bind:key="index" v-for="(ip, index) in selected.ip_addresses">
+        <div @click="$emit('geolocate', ip)" class="ip-address" v-bind:key="index" v-for="(ip, index) in selected.ip_addresses">
             <span class="ip-address-text">{{toggled ? index + 1 : ip}}</span>
         </div>
     </div>
@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import db from '../main'
 
 export default {
@@ -61,8 +60,6 @@ export default {
                     lng: 140.887
                 }
             })
-            // Create an array of alphabetical characters used to label the markers.
-            var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
             // keep track of the extreme lat and long values
             var latEdge = 0
@@ -82,8 +79,7 @@ export default {
                     }
                 }
                 return new google.maps.Marker({
-                    position: location,
-                    label: labels[i % labels.length]
+                    position: location
                 })
             })
             // Add a marker clusterer to manage the markers.
@@ -102,7 +98,7 @@ export default {
         },
         getData: function () {
             let it = this
-            db.ref('feeds/' + this.selected.handle).once('value').then(function (snapshot) {
+            db.ref('feeds/' + it.selected.handle).once('value').then(function (snapshot) {
                 let geolocations = snapshot.val()
                 for (var location in geolocations) {
                     if (geolocations[location].ip) {
@@ -110,43 +106,6 @@ export default {
                     }
                 }
                 it.initMap(geolocations.locations)
-            })
-        },
-        geolocate: function (ip) {
-            let endpoint = `https://us-central1-villainviz-74b9d.cloudfunctions.net/geolocation/`
-            axios({
-                method: 'get',
-                url: endpoint,
-                params: {
-                    'ip': ip
-                }
-            }).then(response => {
-                const element = document.getElementById('map')
-                const options = {
-                    maxZoom: 12,
-                    minZoom: 3,
-                    zoom: 9,
-                    center: new google.maps.LatLng(response.data.geolocation.lat, response.data.geolocation.lon)
-                }
-                /* eslint no-unused-vars: "error" */
-                const map = new google.maps.Map(element, options)
-                if (map) {}
-
-                // place marker
-                const position = new google.maps.LatLng(response.data.geolocation.lat, response.data.geolocation.lon)
-                const marker = new google.maps.Marker({
-                    position,
-                    map
-                })
-                if (marker) {}
-
-                var opt = {
-                    minZoom: 6,
-                    maxZoom: 9
-                }
-                map.setOptions(opt)
-            }).catch(e => {
-                console.dir(e)
             })
         }
     }
