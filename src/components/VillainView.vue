@@ -52,7 +52,6 @@ export default {
     },
     methods: {
         close: function () {
-            this.onGetData(this.feed)
             this.geolocation = {}
         },
         initMap: function (locations) {
@@ -101,6 +100,7 @@ export default {
             map.setOptions(opt)
         },
         onGetData: function (feed) {
+            this.geolocation = {}
             this.feed = feed
             let it = this
             db.ref('feeds/' + feed.handle).once('value').then(function (snapshot) {
@@ -214,13 +214,12 @@ export default {
     display: flex;
     flex-direction: column;
     background: linear-gradient(to top, rgba(255, 255, 255, .5), rgba(255, 255, 255, .9) 90%);
-    width: 210px;
     position: absolute;
     border-radius: 1px solid lightgray;
     border-radius: 3px;
     top: 20px;
     right: 20px;
-    padding: 10px 25px;
+    padding: 20px 25px;
     justify-content: space-around;
     text-align: left;
     box-shadow: rgb(103, 103, 103) 1px 1px 9px 1px;
@@ -237,11 +236,12 @@ export default {
 }
 .close-details {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 0px;
+    top: 0px;
     padding: 5px 8px;
     cursor: pointer;
     font-weight: bold;
     border-radius: 3px;
+    margin-bottom: 5px;
 }
 </style>
