@@ -6,6 +6,7 @@ import App from './App'
 import router from './router'
 import firebase from 'firebase'
 import 'firebase/firestore'
+import 'typeface-roboto'
 
 Vue.use(VueFire)
 // Vue.use(VueFeatherIcon)
