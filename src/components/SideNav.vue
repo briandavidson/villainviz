@@ -115,6 +115,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .feed-select {
+    font-family: Roboto;
     background-color: white;
     outline: none !important;
     text-align-last: center;

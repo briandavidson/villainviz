@@ -5,7 +5,7 @@
         <div class="villain-map" id="map" />
     </div>
     <div v-if="geolocation.as" class="geolocation">
-        <span @click="close" class="close-details">x</span>
+        <span @click="close" class="close-details"><img class="close-icon" src='../assets/x.svg'/></span>
         <span class="detail location">{{geolocation.city}}, {{geolocation.country}}</span>
         <span class="detail">{{geolocation.as}}</span>
         <span class="detail">lat: {{geolocation.lat}}</span>
@@ -242,8 +242,6 @@ export default {
     padding: 5px 8px;
     cursor: pointer;
     font-weight: bold;
-    background: #2776f7;
-    color: white;
     border-radius: 3px;
 }
 </style>
